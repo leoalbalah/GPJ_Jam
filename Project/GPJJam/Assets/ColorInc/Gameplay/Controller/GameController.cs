@@ -6,6 +6,7 @@
 using ColorInc.CusorSystem;
 using ColorInc.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace ColorInc
@@ -86,6 +87,8 @@ namespace ColorInc
             Countdown();
         }
 
+        #endregion
+
         private void Countdown()
         {
             if (!_timerIsRunning) return;
@@ -105,9 +108,7 @@ namespace ColorInc
 
             hudSystem.UpdateTime(string.Format("{0:00}:{1:00}", minutes, seconds));
         }
-
-        #endregion
-
+        
         public void SelectColor(string color)
         {
             if (!_timerIsRunning) return;
@@ -171,17 +172,7 @@ namespace ColorInc
 
         public void ExitGame()
         {
-            if (Application.isEditor)
-            {
-#if UNITY_EDITOR
-
-                UnityEditor.EditorApplication.isPlaying = false;
-#endif
-            }
-            else
-            {
-                Application.Quit();
-            }
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }
