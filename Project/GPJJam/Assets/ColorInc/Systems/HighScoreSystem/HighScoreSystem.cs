@@ -106,5 +106,10 @@ namespace ColorInc.HighScore
         {
             leaderboard.SetActive(!leaderboard.activeSelf);
         }
+
+        public bool GetAvailability(int thisScore)
+        {
+            return highScores.Count < 25 || highScores[highScores.Count-1].Money <= thisScore;
+        }
     }
 }

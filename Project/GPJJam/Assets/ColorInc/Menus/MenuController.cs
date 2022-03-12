@@ -3,6 +3,7 @@
  * Created 3/12/2022 5:04:13 PM
  */
 
+using TMPro;
 using UnityEngine;
 
 namespace ColorInc.UI
@@ -14,10 +15,18 @@ namespace ColorInc.UI
     {
         #region Properties
 
-        [Header("Properties")] [Tooltip("Pause Menu")] [SerializeField]
-        private GameObject pauseMenu;
+        [Header("Properties")] 
+        [SerializeField] private GameObject pauseMenu;
+        [SerializeField] private GameObject endGameMenu;
+        [SerializeField] private GameObject uploadMenu;
+        [SerializeField] private GameObject youMadeItPart;
+
+        public TMP_InputField uploadInput;
+        [SerializeField] private TextMeshProUGUI endGameScore;
 
         #endregion
+
+        private int _score = 200;
 
         #region LifeCycle
 
@@ -31,6 +40,27 @@ namespace ColorInc.UI
         public void TogglePause()
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);
+        }
+
+        public void ToggleEndGame()
+        {
+            endGameScore.text = "Your Score : " + _score;
+            endGameMenu.SetActive(!endGameMenu.activeSelf);
+        }
+
+        public void SetScore(int money)
+        {
+            _score = money;
+        }
+
+        public void ToggleUploadTab()
+        {
+            uploadMenu.SetActive(!uploadMenu.activeSelf);
+        }
+        
+        public void SetYouMadeIt(bool set)
+        {
+            youMadeItPart.SetActive(set);
         }
     }
 }

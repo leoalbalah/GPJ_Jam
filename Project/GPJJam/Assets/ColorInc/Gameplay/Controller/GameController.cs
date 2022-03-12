@@ -4,6 +4,7 @@
  */
 
 using ColorInc.CusorSystem;
+using ColorInc.HighScore;
 using ColorInc.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,6 +24,7 @@ namespace ColorInc
         [SerializeField] private PaintSystem.PaintSystem paintSystem;
         [SerializeField] private HUDSystem hudSystem;
         [SerializeField] private MenuController menuController;
+        [SerializeField] private HighScoreSystem highScoreSystem;
 
         [Header("Game Settings")] [SerializeField]
         private int sessionTime;
@@ -98,17 +100,19 @@ namespace ColorInc
             }
             else
             {
-                Debug.Log("Time has run out!");
                 _timeRemaining = 0;
                 _timerIsRunning = false;
+                menuController.SetYouMadeIt(highScoreSystem.GetAvailability(_money));
+                menuController.SetScore(_money);
+                menuController.ToggleEndGame();
             }
 
             float minutes = Mathf.FloorToInt(_timeRemaining / 60);
             float seconds = Mathf.FloorToInt(_timeRemaining % 60);
 
-            hudSystem.UpdateTime(string.Format("{0:00}:{1:00}", minutes, seconds));
+            hudSystem.UpdateTime($"{minutes:00}:{seconds:00}");
         }
-        
+
         public void SelectColor(string color)
         {
             if (!_timerIsRunning) return;
@@ -173,6 +177,27 @@ namespace ColorInc
         public void ExitGame()
         {
             SceneManager.LoadScene("MainMenu");
+        }
+
+        public void RetryGame()
+        {
+            SceneManager.LoadScene("GameScene");
+        }
+
+        public void ShowUploadTab()
+        {
+            menuController.ToggleEndGame();
+            menuController.ToggleUploadTab();
+        }
+
+        public void UploadScore()
+        {
+            if (string.IsNullOrEmpty(menuController.uploadInput.text)) return;
+
+            highScoreSystem.AddNewHighScore(menuController.uploadInput.text, _money);
+            menuController.SetYouMadeIt(false);
+
+            ShowUploadTab();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace ColorInc.UI
 
         private void UpdateUI()
         {
-            moneyText.text = _money.ToString() + "$";
+            moneyText.text = _money.ToString() + " $";
         }
 
         public void Initialize(int sessionTime, int startMoney)
