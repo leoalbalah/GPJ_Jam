@@ -46,3 +46,8 @@ MonoBehaviour:
   player: {fileID: 0}
   cursorSystem: {fileID: 0}
   paintSystem: {fileID: 0}
+  hudSystem: {fileID: 0}
+  sessionTime: 3
+  startMoney: 300
+  earnMoney: 100
+  spendMoney: 30

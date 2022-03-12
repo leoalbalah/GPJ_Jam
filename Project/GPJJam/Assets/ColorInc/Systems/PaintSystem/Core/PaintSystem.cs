@@ -129,7 +129,7 @@ namespace ColorInc.PaintSystem
                         break;
                 }
             }
-            
+
             // Secondary
             else if (activeColor == "Orange")
             {
@@ -188,13 +188,24 @@ namespace ColorInc.PaintSystem
                 }
             }
 
+            // Tertiary
+            else
+            {
+                activeColor = "BlackTexture";
+                activeTexture = blackTexture;
+            }
+
             UpdateTexture();
         }
 
         private void UpdateTexture()
         {
-            Debug.Log("Updating");
             bucket.GetComponent<Image>().sprite = activeTexture;
+        }
+
+        public string GetBucketColor()
+        {
+            return activeColor;
         }
 
         public void Reset()
