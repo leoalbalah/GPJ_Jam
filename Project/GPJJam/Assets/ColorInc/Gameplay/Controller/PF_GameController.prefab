@@ -47,7 +47,18 @@ MonoBehaviour:
   cursorSystem: {fileID: 0}
   paintSystem: {fileID: 0}
   hudSystem: {fileID: 0}
-  sessionTime: 3
-  startMoney: 300
-  earnMoney: 100
-  spendMoney: 30
+  sessionTime: 180
+  startMoney: 200
+  earnMoney: 200
+  spendMoney: 50
+  colors:
+  - Green
+  - Orange
+  - Purple
+  - RedOrange
+  - YellowOrange
+  - GreenYellow
+  - BlueGreen
+  - BluePurple
+  - RedPurple
+  goalColor: 

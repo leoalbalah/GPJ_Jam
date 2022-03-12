@@ -3,7 +3,6 @@
  * Created 3/11/2022 4:46:46 PM
  */
 
-using System;
 using ColorInc.CusorSystem;
 using ColorInc.UI;
 using UnityEngine;
@@ -22,6 +21,7 @@ namespace ColorInc
         [SerializeField] private CursorSystem cursorSystem;
         [SerializeField] private PaintSystem.PaintSystem paintSystem;
         [SerializeField] private HUDSystem hudSystem;
+        [SerializeField] private MenuController menuController;
 
         [Header("Game Settings")] [SerializeField]
         private int sessionTime;
@@ -29,7 +29,12 @@ namespace ColorInc
         [SerializeField] private int startMoney;
         [SerializeField] private int earnMoney;
         [SerializeField] private int spendMoney;
-        [SerializeField] private string[] colors = {"Green", "Orange", "Purple"};
+
+        [SerializeField] private string[] colors =
+        {
+            "Green", "Orange", "Purple", "RedOrange", "YellowOrange", "GreenYellow", "BlueGreen", "BluePurple",
+            "RedPurple"
+        };
 
         [Header("Debug Game Goal")] [SerializeField]
         private string goalColor;
@@ -42,6 +47,7 @@ namespace ColorInc
         private int _money;
         private float _timeRemaining;
         private bool _timerIsRunning = false;
+        private bool _paused = false;
 
         #endregion
 
@@ -64,6 +70,8 @@ namespace ColorInc
 
         private void Start()
         {
+            _keyBindings.Default.Pause.performed += _ => TogglePause();
+
             _timeRemaining = sessionTime;
             _timerIsRunning = true;
 
@@ -152,6 +160,28 @@ namespace ColorInc
 
             goalColor = newGoal;
             hudSystem.SetGoal(goalColor);
+        }
+
+        public void TogglePause()
+        {
+            _paused = !_paused;
+            menuController.TogglePause();
+            Time.timeScale = _paused ? 0f : 1f;
+        }
+
+        public void ExitGame()
+        {
+            if (Application.isEditor)
+            {
+#if UNITY_EDITOR
+
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            }
+            else
+            {
+                Application.Quit();
+            }
         }
     }
 }
