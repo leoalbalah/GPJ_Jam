@@ -146,7 +146,8 @@ MonoBehaviour:
   hudSystem: {fileID: 0}
   menuController: {fileID: 0}
   highScoreSystem: {fileID: 0}
-  sessionTime: 180
+  countDownSFX: {fileID: 8300000, guid: 6cf23f7ca6b742a4082eab491bc0619c, type: 3}
+  sessionTime: 20
   startMoney: 200
   earnMoney: 200
   spendMoney: 50

@@ -19,7 +19,7 @@ namespace ColorInc.UI
         [Header("Imports")] 
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI moneyText;
-        [SerializeField] private TextMeshProUGUI goalText;
+        [SerializeField] private SpriteRenderer goalTvColor;
 
         [Header("Sounds")] [SerializeField] private AudioClip moneyEarn;
 
@@ -55,9 +55,9 @@ namespace ColorInc.UI
             UpdateUI();
         }
 
-        public void SetGoal(string goal)
+        public void SetGoal(Color goal)
         {
-            goalText.text = goal;
+            goalTvColor.color = goal;
         }
 
         public void UpdateTime(string timeLeft)

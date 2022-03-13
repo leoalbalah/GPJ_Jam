@@ -3,6 +3,7 @@
  * Created 3/11/2022 4:46:46 PM
  */
 
+using System.Collections.Generic;
 using ColorInc.CusorSystem;
 using ColorInc.HighScore;
 using ColorInc.UI;
@@ -25,6 +26,13 @@ namespace ColorInc
         [SerializeField] private HUDSystem hudSystem;
         [SerializeField] private MenuController menuController;
         [SerializeField] private HighScoreSystem highScoreSystem;
+        [SerializeField] private GameObject bubble;
+        
+        [SerializeField] private AudioSource bossSource;
+        
+        [SerializeField] private AudioClip randomBoss;
+
+
 
         [SerializeField] private AudioClip countDownSFX;
 
@@ -41,6 +49,8 @@ namespace ColorInc
             "RedPurple"
         };
 
+        [SerializeField] private Dictionary<string, Color> colorDict = new Dictionary<string, Color>();
+
         [Header("Debug Game Goal")] [SerializeField]
         private string goalColor;
 
@@ -55,6 +65,7 @@ namespace ColorInc
         private bool _paused = false;
         private AudioSource _audioSource;
         private bool _onCountDown = false;
+        private bool playing = false;
 
         #endregion
 
@@ -78,6 +89,8 @@ namespace ColorInc
 
         private void Start()
         {
+            InitDictionary();
+            
             _keyBindings.Default.Pause.performed += _ => TogglePause();
 
             _timeRemaining = sessionTime;
@@ -87,6 +100,19 @@ namespace ColorInc
             hudSystem.Initialize(sessionTime, startMoney);
 
             GetGoal();
+        }
+
+        private void InitDictionary()
+        {
+            colorDict.Add("Green", ColorExtension.GetColorFromString("528a61"));
+            colorDict.Add("Orange", ColorExtension.GetColorFromString("f39329"));
+            colorDict.Add("Purple", ColorExtension.GetColorFromString("763455"));
+            colorDict.Add("RedOrange", ColorExtension.GetColorFromString("eb5f32"));
+            colorDict.Add("YellowOrange", ColorExtension.GetColorFromString("fcc30d"));
+            colorDict.Add("GreenYellow", ColorExtension.GetColorFromString("b2b745"));
+            colorDict.Add("BlueGreen", ColorExtension.GetColorFromString("137e93"));
+            colorDict.Add("BluePurple", ColorExtension.GetColorFromString("4c5684"));
+            colorDict.Add("RedPurple", ColorExtension.GetColorFromString("b12d44"));
         }
 
         private void Update()
@@ -118,6 +144,7 @@ namespace ColorInc
                 menuController.SetYouMadeIt(highScoreSystem.GetAvailability(_money));
                 menuController.SetScore(_money);
                 menuController.ToggleEndGame();
+                paintSystem.gameObject.SetActive(false);
             }
 
             float minutes = Mathf.FloorToInt(_timeRemaining / 60);
@@ -162,6 +189,19 @@ namespace ColorInc
         {
             if (!_timerIsRunning) return;
 
+            bubble.SetActive(true);
+
+            if (!playing)
+            {
+                playing = true;
+                bossSource.PlayOneShot(randomBoss);
+                LeanTween.delayedCall(3.8f, () =>
+                {
+                    bubble.SetActive(false);
+                    playing = false;
+                });
+            }
+
             paintSystem.Reset();
             SelectColor("default");
         }
@@ -177,7 +217,7 @@ namespace ColorInc
             }
 
             goalColor = newGoal;
-            hudSystem.SetGoal(goalColor);
+            hudSystem.SetGoal(colorDict[goalColor]);
         }
 
         public void TogglePause()
