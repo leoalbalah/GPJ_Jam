@@ -26,6 +26,8 @@ namespace ColorInc
         [SerializeField] private MenuController menuController;
         [SerializeField] private HighScoreSystem highScoreSystem;
 
+        [SerializeField] private AudioClip countDownSFX;
+
         [Header("Game Settings")] [SerializeField]
         private int sessionTime;
 
@@ -51,6 +53,8 @@ namespace ColorInc
         private float _timeRemaining;
         private bool _timerIsRunning = false;
         private bool _paused = false;
+        private AudioSource _audioSource;
+        private bool _onCountDown = false;
 
         #endregion
 
@@ -68,6 +72,7 @@ namespace ColorInc
 
         private void Awake()
         {
+            _audioSource = GetComponent<AudioSource>();
             _keyBindings = new KeyBindings();
         }
 
@@ -97,6 +102,14 @@ namespace ColorInc
             if (_timeRemaining > 0)
             {
                 _timeRemaining -= Time.deltaTime;
+
+                if (_timeRemaining <= 9 & !_onCountDown)
+                {
+                    _onCountDown = true;
+                    _audioSource.clip = countDownSFX;
+                    _audioSource.loop = false;
+                    _audioSource.Play();
+                }
             }
             else
             {

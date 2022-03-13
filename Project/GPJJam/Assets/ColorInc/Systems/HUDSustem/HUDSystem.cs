@@ -21,6 +21,8 @@ namespace ColorInc.UI
         [SerializeField] private TextMeshProUGUI moneyText;
         [SerializeField] private TextMeshProUGUI goalText;
 
+        [Header("Sounds")] [SerializeField] private AudioClip moneyEarn;
+
         #endregion
 
         #region Variables
@@ -38,6 +40,7 @@ namespace ColorInc.UI
         public void Earn(int amount)
         {
             _money += amount;
+            GetComponent<AudioSource>().PlayOneShot(moneyEarn);
             UpdateUI();
         }
 
