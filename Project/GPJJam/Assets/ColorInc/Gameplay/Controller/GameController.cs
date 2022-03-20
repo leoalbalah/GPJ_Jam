@@ -88,6 +88,8 @@ namespace ColorInc
 
         private void Start()
         {
+            Time.timeScale = 1;
+            
             InitDictionary();
 
             _keyBindings.Default.Pause.performed += _ => TogglePause();
