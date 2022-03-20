@@ -27,11 +27,10 @@ namespace ColorInc
         [SerializeField] private MenuController menuController;
         [SerializeField] private HighScoreSystem highScoreSystem;
         [SerializeField] private GameObject bubble;
-        
-        [SerializeField] private AudioSource bossSource;
-        
-        [SerializeField] private AudioClip randomBoss;
 
+        [SerializeField] private AudioSource bossSource;
+
+        [SerializeField] private AudioClip randomBoss;
 
 
         [SerializeField] private AudioClip countDownSFX;
@@ -90,7 +89,7 @@ namespace ColorInc
         private void Start()
         {
             InitDictionary();
-            
+
             _keyBindings.Default.Pause.performed += _ => TogglePause();
 
             _timeRemaining = sessionTime;
@@ -179,7 +178,11 @@ namespace ColorInc
                 _money += earnMoney;
                 hudSystem.Earn(earnMoney);
 
-                LeanTween.delayedCall(.5f, () => { BucketReseter(); });
+                LeanTween.delayedCall(.5f, () =>
+                {
+                    paintSystem.Reset();
+                    SelectColor("default");
+                });
 
                 GetGoal();
             }
