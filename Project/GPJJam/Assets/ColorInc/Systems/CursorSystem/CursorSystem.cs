@@ -8,7 +8,7 @@ using UnityEngine;
 namespace ColorInc.CusorSystem
 {
     /// <summary>  
-    /// Handles the cursor states, sprites and animations
+    /// Handles the cursor states and sprites.
     /// </summary>
     public class CursorSystem : MonoBehaviour
     {

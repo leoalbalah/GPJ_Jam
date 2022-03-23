@@ -3,24 +3,25 @@
  * Created 3/11/2022 8:33:58 PM
  */
 
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ColorInc.PaintSystem
 {
     /// <summary>  
-    /// Brief summary of what the class does
+    /// Handles the paint system interactions.
     /// </summary>
     public class PaintSystem : MonoBehaviour
     {
         #region Properties
 
-        [Header("Bucket")] [SerializeField] private GameObject bucket;
+        [Header("Bucket")] 
+        [SerializeField] private GameObject bucket;
 
-        [Header("Colors")] [Header("Default")] [SerializeField]
-        private Sprite defaultTexture;
-
+        [Header("Colors")] 
+        
+        [Header("Default")] 
+        [SerializeField] private Sprite defaultTexture;
         [SerializeField] private Sprite blackTexture;
 
         [Header("Primary")] [SerializeField] private Sprite red;
@@ -40,7 +41,8 @@ namespace ColorInc.PaintSystem
 
         #region Variables
 
-        [Header("Debug")] [SerializeField] private Sprite activeTexture;
+        [Header("Debug")] 
+        [SerializeField] private Sprite activeTexture;
         [SerializeField] private string activeColor = "default";
 
         #endregion

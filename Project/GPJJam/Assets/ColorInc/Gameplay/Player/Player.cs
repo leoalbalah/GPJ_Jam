@@ -3,13 +3,12 @@
  * Created 3/11/2022 6:21:29 PM
  */
 
-using System;
 using UnityEngine;
 
 namespace ColorInc.Player
 {
     /// <summary>  
-    /// Brief summary of what the class does
+    /// Works in between the color selectors and the game logic.
     /// </summary>
     public class Player : MonoBehaviour
     {
@@ -28,7 +27,7 @@ namespace ColorInc.Player
         {
             selectedColor = color;
         }
-        
+
         public string GetSelectedColor()
         {
             return selectedColor;

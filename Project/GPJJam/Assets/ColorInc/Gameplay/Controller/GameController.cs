@@ -14,25 +14,22 @@ using Random = UnityEngine.Random;
 namespace ColorInc
 {
     /// <summary>  
-    /// Controls The Game Flow
+    /// Controls The Game Flow.
     /// </summary>
     public class GameController : MonoBehaviour
     {
         #region Properties
 
-        [Header("Imports")] [SerializeField] private Player.Player player;
+        [Header("Imports")] 
+        [SerializeField] private Player.Player player;
         [SerializeField] private CursorSystem cursorSystem;
         [SerializeField] private PaintSystem.PaintSystem paintSystem;
         [SerializeField] private HUDSystem hudSystem;
         [SerializeField] private MenuController menuController;
         [SerializeField] private HighScoreSystem highScoreSystem;
         [SerializeField] private GameObject bubble;
-
         [SerializeField] private AudioSource bossSource;
-
         [SerializeField] private AudioClip randomBoss;
-
-
         [SerializeField] private AudioClip countDownSFX;
 
         [Header("Game Settings")] [SerializeField]
@@ -48,7 +45,7 @@ namespace ColorInc
             "RedPurple"
         };
 
-        [SerializeField] private Dictionary<string, Color> colorDict = new Dictionary<string, Color>();
+        private Dictionary<string, Color> _colorDict = new Dictionary<string, Color>();
 
         [Header("Debug Game Goal")] [SerializeField]
         private string goalColor;
@@ -64,7 +61,7 @@ namespace ColorInc
         private bool _paused = false;
         private AudioSource _audioSource;
         private bool _onCountDown = false;
-        private bool playing = false;
+        private bool _playing = false;
 
         #endregion
 
@@ -105,15 +102,15 @@ namespace ColorInc
 
         private void InitDictionary()
         {
-            colorDict.Add("Green", ColorExtension.GetColorFromString("528a61"));
-            colorDict.Add("Orange", ColorExtension.GetColorFromString("f39329"));
-            colorDict.Add("Purple", ColorExtension.GetColorFromString("763455"));
-            colorDict.Add("RedOrange", ColorExtension.GetColorFromString("eb5f32"));
-            colorDict.Add("YellowOrange", ColorExtension.GetColorFromString("fcc30d"));
-            colorDict.Add("GreenYellow", ColorExtension.GetColorFromString("b2b745"));
-            colorDict.Add("BlueGreen", ColorExtension.GetColorFromString("137e93"));
-            colorDict.Add("BluePurple", ColorExtension.GetColorFromString("4c5684"));
-            colorDict.Add("RedPurple", ColorExtension.GetColorFromString("b12d44"));
+            _colorDict.Add("Green", ColorExtension.GetColorFromString("528a61"));
+            _colorDict.Add("Orange", ColorExtension.GetColorFromString("f39329"));
+            _colorDict.Add("Purple", ColorExtension.GetColorFromString("763455"));
+            _colorDict.Add("RedOrange", ColorExtension.GetColorFromString("eb5f32"));
+            _colorDict.Add("YellowOrange", ColorExtension.GetColorFromString("fcc30d"));
+            _colorDict.Add("GreenYellow", ColorExtension.GetColorFromString("b2b745"));
+            _colorDict.Add("BlueGreen", ColorExtension.GetColorFromString("137e93"));
+            _colorDict.Add("BluePurple", ColorExtension.GetColorFromString("4c5684"));
+            _colorDict.Add("RedPurple", ColorExtension.GetColorFromString("b12d44"));
         }
 
         private void Update()
@@ -196,14 +193,14 @@ namespace ColorInc
 
             bubble.SetActive(true);
 
-            if (!playing)
+            if (!_playing)
             {
-                playing = true;
+                _playing = true;
                 bossSource.PlayOneShot(randomBoss);
                 LeanTween.delayedCall(3.8f, () =>
                 {
                     bubble.SetActive(false);
-                    playing = false;
+                    _playing = false;
                 });
             }
 
@@ -222,7 +219,7 @@ namespace ColorInc
             }
 
             goalColor = newGoal;
-            hudSystem.SetGoal(colorDict[goalColor]);
+            hudSystem.SetGoal(_colorDict[goalColor]);
         }
 
         public void TogglePause()

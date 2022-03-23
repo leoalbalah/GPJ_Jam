@@ -9,12 +9,12 @@ using UnityEngine.EventSystems;
 namespace ColorInc.PaintSystem
 {
     /// <summary>  
-    /// Brief summary of what the class does
+    /// Handles the UI interactions color selections.
     /// </summary>
     public class ColorSelector : MonoBehaviour, IPointerClickHandler
     {
-        [Header("Properties")] [Tooltip("Selector Color")] [SerializeField]
-        private string color;
+        [Header("Properties")] 
+        [SerializeField] private string color;
         
         public void OnPointerClick(PointerEventData eventData)
         {

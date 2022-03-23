@@ -3,14 +3,13 @@
  * Created 3/12/2022 2:45:08 PM
  */
 
-using System;
 using TMPro;
 using UnityEngine;
 
 namespace ColorInc.UI
 {
     /// <summary>  
-    /// Brief summary of what the class does
+    /// Handles the HUD UI Data and states.
     /// </summary>
     public class HUDSystem : MonoBehaviour
     {

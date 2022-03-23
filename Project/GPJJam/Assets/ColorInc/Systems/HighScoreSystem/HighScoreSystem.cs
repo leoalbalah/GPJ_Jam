@@ -3,7 +3,6 @@
  * Created 3/12/2022 6:29:10 PM
  */
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
@@ -13,20 +12,21 @@ using UnityEngine;
 namespace ColorInc.HighScore
 {
     /// <summary>  
-    /// Handles the HighScore Functionalities
+    /// Handles the HighScore Functionalities.
     /// </summary>
     public class HighScoreSystem : MonoBehaviour
     {
         #region Properties
 
-        [Header("Imports")] [SerializeField] private GameObject leaderboard;
+        [Header("Imports")] 
+        [SerializeField] private GameObject leaderboard;
         [SerializeField] private TextMeshProUGUI scoresText;
 
         #endregion
 
         #region Variables
 
-        [SerializeField] private List<Score> highScores = new List<Score>();
+        private List<Score> _highScores = new List<Score>();
 
         private const string PrivateCode = "x_6Q8xDQn0CWgwaM__b14QZPBITnHlh0uexsMgEFrHyQ";
         private const string PublicCode = "622d2bd68f40bc123c20d60c";
@@ -36,7 +36,6 @@ namespace ColorInc.HighScore
 
         private void Awake()
         {
-            // AddNewHighScore("Testina", 250);
             DownloadHighScores();
         }
 
@@ -45,7 +44,7 @@ namespace ColorInc.HighScore
             StartCoroutine(UploadNewHighScore(username, score));
         }
 
-        public void DownloadHighScores()
+        private void DownloadHighScores()
         {
             StartCoroutine(DownloadHighScoresCoroutine());
         }
@@ -55,14 +54,14 @@ namespace ColorInc.HighScore
             var www = new WWW(WebUrl + PrivateCode + "/add/" + WWW.EscapeURL(username) + "/" + score);
             yield return www;
 
-            if (string.IsNullOrEmpty(www.error))
-            {
-                Debug.Log("HighScore Uploaded");
-            }
-            else
-            {
-                Debug.LogError("HighScore Upload Error");
-            }
+            // if (string.IsNullOrEmpty(www.error))
+            // {
+            //     Debug.Log("HighScore Uploaded");
+            // }
+            // else
+            // {
+            //     Debug.LogError("HighScore Upload Error");
+            // }
         }
 
         IEnumerator DownloadHighScoresCoroutine()
@@ -77,15 +76,15 @@ namespace ColorInc.HighScore
 
                 foreach (JSONNode entry in entries)
                 {
-                    highScores.Add(new Score(entry["name"], entry["score"]));
+                    _highScores.Add(new Score(entry["name"], entry["score"]));
                 }
 
                 UpdateLeaderBoardUI();
             }
-            else
-            {
-                Debug.LogError("HighScore Upload Error");
-            }
+            // else
+            // {
+            //     Debug.LogError("HighScore Upload Error");
+            // }
         }
 
         private void UpdateLeaderBoardUI()
@@ -93,7 +92,7 @@ namespace ColorInc.HighScore
             var lead = "";
 
             var pos = 1;
-            foreach (var score in highScores)
+            foreach (var score in _highScores)
             {
                 lead += pos + ". " + score.User + " - " + score.Money + "\n";
                 pos++;
@@ -109,7 +108,7 @@ namespace ColorInc.HighScore
 
         public bool GetAvailability(int thisScore)
         {
-            return highScores.Count < 25 || highScores[highScores.Count-1].Money <= thisScore;
+            return _highScores.Count < 25 || _highScores[_highScores.Count-1].Money <= thisScore;
         }
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine;
 namespace ColorInc.UI
 {
     /// <summary>  
-    /// Controls The menus
+    /// Controls the menus states.
     /// </summary>
     public class MenuController : MonoBehaviour
     {
@@ -24,9 +24,10 @@ namespace ColorInc.UI
         public TMP_InputField uploadInput;
         [SerializeField] private TextMeshProUGUI endGameScore;
 
+        private int _score = 200;
+        
         #endregion
 
-        private int _score = 200;
 
         #region LifeCycle
 
@@ -57,7 +58,7 @@ namespace ColorInc.UI
         {
             uploadMenu.SetActive(!uploadMenu.activeSelf);
         }
-        
+
         public void SetYouMadeIt(bool set)
         {
             youMadeItPart.SetActive(set);

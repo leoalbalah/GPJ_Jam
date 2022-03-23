@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 namespace ColorInc.PaintSystem
 {
     /// <summary>  
-    /// Brief summary of what the class does
+    /// Handles the UI interactions for adding colors to the bucket.
     /// </summary>
     public class ColorAdder : MonoBehaviour, IPointerClickHandler
     {
