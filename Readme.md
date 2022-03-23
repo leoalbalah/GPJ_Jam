@@ -2,11 +2,11 @@
 
 Little mini-game made for the GamesPlusJames 2022 Jam.
 
-[Itch.io Link](https://leoalbalah.itch.io/colorinc)
-
 <div align="center">
-  [<img alt="Itch.io Link" width="200" src="Doc/itch.png" />](https://leoalbalah.itch.io/colorinc)
-  
+<a href="https://leoalbalah.itch.io/colorinc">
+<img alt="Itch.io Link" width="200" src="Doc/itch.png" />
+</a>
+
   <img src="Doc/ScreenShoot.png">
 </div>
 
